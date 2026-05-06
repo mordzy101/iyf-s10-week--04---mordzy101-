@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Fundamentals Projects</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        header {
+            padding: 28px 20px;
+            background: #172033;
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin: 0;
+            color: #d7e2f2;
+        }
+
+        main {
+            width: min(1100px, 100%);
+            margin: 0 auto;
+            padding: 24px 16px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #dce4ef;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(23, 32, 51, 0.08);
+        }
+
+        h2 {
+            margin: 0 0 16px;
+            font-size: 1.35rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            min-height: 42px;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        input,
+        select {
+            border: 1px solid #bdc8d7;
+            padding: 8px 10px;
+            background: white;
+        }
+
+        button {
+            border: 0;
+            padding: 10px 14px;
+            background: #1f6feb;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #195fc8;
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        .result {
+            min-height: 48px;
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 6px;
+            background: #edf4ff;
+            color: #123260;
+            font-weight: bold;
+        }
+
+        .message {
+            min-height: 24px;
+            margin-top: 10px;
+            color: #b42318;
+            font-weight: bold;
+        }
+
+        .student-list {
+            margin: 18px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .student-list li {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e7edf5;
+        }
+
+        .student-list strong {
+            display: block;
+        }
+
+        .student-list span {
+            color: #526070;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .summary div {
+            padding: 12px;
+            border-radius: 6px;
+            background: #f6f8fb;
+            text-align: center;
+        }
+
+        .summary strong {
+            display: block;
+            margin-top: 4px;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 420px) {
+            header h1 {
+                font-size: 1.6rem;
+            }
+
+            main {
+                grid-template-columns: 1fr;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>JavaScript Fundamentals Projects</h1>
+        <p>Calculator and student grade tracker using variables, functions, control flow, arrays, and objects.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Interactive Calculator</h2>
+
+            <div class="field">
+                <label for="firstNumber">First number</label>
+                <input id="firstNumber" type="number" placeholder="Enter a number">
+            </div>
+
+            <div class="field">
+                <label for="operator">Operation</label>
+                <select id="operator">
+                    <option value="add">Add (+)</option>
+                    <option value="subtract">Subtract (-)</option>
+                    <option value="multiply">Multiply (*)</option>
+                    <option value="divide">Divide (/)</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="secondNumber">Second number</label>
+                <input id="secondNumber" type="number" placeholder="Enter a number">
+            </div>
+
+            <button id="calculateButton">Calculate</button>
+            <div id="calculatorResult" class="result">Result will appear here.</div>
+            <div id="calculatorMessage" class="message"></div>
+        </section>
+
+        <section>
+            <h2>Student Grade Tracker</h2>
+
+            <div class="field">
+                <label for="studentName">Student name</label>
+                <input id="studentName" type="text" placeholder="Example: Amina">
+            </div>
+
+            <div class="field">
+                <label for="studentScore">Score</label>
+                <input id="studentScore" type="number" min="0" max="100" placeholder="0 - 100">
+            </div>
+
+            <button id="addStudentButton">Add Student</button>
+            <div id="gradeMessage" class="message"></div>
+
+            <ul id="studentList" class="student-list"></ul>
+
+            <div class="summary">
+                <div>
+                    Students
+                    <strong id="totalStudents">0</strong>
+                </div>
+                <div>
+                    Average
+                    <strong id="averageScore">0</strong>
+                </div>
+                <div>
+                    Top Score
+                    <strong id="topScore">0</strong>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>

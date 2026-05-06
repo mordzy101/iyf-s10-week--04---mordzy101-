@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grade Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #5568d3;
+        }
+        
+        .stats {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-label {
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .stat-value {
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .student-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .student-item {
+            background: #f9f9f9;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .student-info {
+            flex: 1;
+        }
+        
+        .student-name {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .student-grade {
+            color: #667eea;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+            width: auto;
+            transition: background-color 0.3s;
+        }
+        
+        .delete-btn:hover {
+            background-color: #da190b;
+        }
+        
+        .empty-message {
+            text-align: center;
+            color: #999;
+            padding: 30px 0;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Grade Tracker</h1>
+        
+        <div class="content">
+            <!-- Add Student Section -->
+            <div class="section">
+                <h2>Add Student</h2>
+                
+                <div class="input-group">
+                    <label for="studentName">Student Name:</label>
+                    <input type="text" id="studentName" placeholder="Enter student name">
+                </div>
+                
+                <div class="input-group">
+                    <label for="studentGrade">Grade (0-100):</label>
+                    <input type="number" id="studentGrade" min="0" max="100" placeholder="Enter grade">
+                </div>
+                
+                <button onclick="addStudent()">Add Student</button>
+                
+                <div class="stats">
+                    <h3 style="margin-bottom: 15px; color: #333;">Class Statistics</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Students:</span>
+                        <span class="stat-value" id="totalStudents">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Average Grade:</span>
+                        <span class="stat-value" id="averageGrade">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Highest Grade:</span>
+                        <span class="stat-value" id="highestGrade">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Lowest Grade:</span>
+                        <span class="stat-value" id="lowestGrade">--</span>
+                    </div>
+                </div>
+                
+                <button onclick="clearAllStudents()" style="background-color: #f44336;">Clear All</button>
+            </div>
+            
+            <!-- Student List Section -->
+            <div class="section">
+                <h2>Student List</h2>
+                
+                <div class="student-list" id="studentList">
+                    <div class="empty-message">No students added yet</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="gradeTracker.js"></script>
+</body>
+</html>
